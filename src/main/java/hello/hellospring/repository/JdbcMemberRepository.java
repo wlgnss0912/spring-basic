@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 public class JdbcMemberRepository implements MemberRepository {
-    private final DataSource dataSource;
+
+    private final DataSource dataSource;//데이터 베이스 연결 전용
+
     public JdbcMemberRepository(DataSource dataSource) {
-        this.dataSource = dataSource;
+        this.dataSource = dataSource;//스프링을 통해서 주입 받아야한다.
     }
     @Override
     public Member save(Member member) {

@@ -5,14 +5,17 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -27,8 +30,7 @@ public class MemberService {
         result.ifPresent(m -> {//ifPresent : result가 null이 아니라 member에 값이 있으면 동작
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });*/
-        
-        //위에보다 아래처럼 많이 사용
+
         validateDuplicateMember(member);//중복회원 검증
         memberRepository.save(member);
         return member.getId();
